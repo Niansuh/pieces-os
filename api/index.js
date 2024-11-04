@@ -296,11 +296,18 @@ async function ConvertOpenai(client, request, inputModel, OriginModel, stream) {
                 }
         }
 }
-
+function generateId() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let id = 'chatcmpl-';
+    for (let i = 0; i < 27; i++) {
+        id += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return id;
+}
 
 function ChatCompletionWithModel(message, model) {
         return {
-                id: 'Chat-Nekohy',
+                id: generateId(),
                 object: 'chat.completion',
                 created: Date.now(),
                 model,
@@ -323,7 +330,7 @@ function ChatCompletionWithModel(message, model) {
 
 function ChatCompletionStreamWithModel(text, model) {
         return {
-                id: 'chatcmpl-Nekohy',
+                id: generateId(),
                 object: 'chat.completion.chunk',
                 created: 0,
                 model,
